@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Environment, MockoonServer, Transaction } from '@mockoon/commons';
+import { Environment, MockoonServer, Transaction } from '../../commons/src';
 import { Logger } from 'src/app/classes/logger';
 import { AnalyticsEvents } from 'src/app/enums/analytics-events.enum';
 import { MessageParams } from 'src/app/models/messages.model';

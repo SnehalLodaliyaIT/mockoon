@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { SetFakerLocale, SetFakerSeed } from '@mockoon/commons';
+import { SetFakerLocale, SetFakerSeed } from '../../commons/src';
 import { distinctUntilChanged, filter, mergeMap, tap } from 'rxjs/operators';
 import { Logger } from 'src/app/classes/logger';
 import { Config } from 'src/app/config';

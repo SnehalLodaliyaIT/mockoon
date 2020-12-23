@@ -14,7 +14,7 @@ import {
   Header,
   RouteResponse,
   TestHeaderValidity
-} from '@mockoon/commons';
+} from '../../commons/src';
 import { Observable, Subject } from 'rxjs';
 import {
   debounceTime,

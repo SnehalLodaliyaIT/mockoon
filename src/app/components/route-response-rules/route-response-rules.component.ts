@@ -15,7 +15,7 @@ import {
   ResponseRuleTargets,
   Route,
   RouteResponse
-} from '@mockoon/commons';
+} from '../../../commons/src';
 import { Observable, Subject } from 'rxjs';
 import {
   debounceTime,

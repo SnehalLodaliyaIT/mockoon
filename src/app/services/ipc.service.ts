@@ -31,6 +31,9 @@ export class IpcService {
           this.environmentsService.addEnvironment();
           this.uiService.scrollEnvironmentsMenu.next(ScrollDirection.BOTTOM);
           break;
+        case 'NEW_RESOURCE':
+          this.environmentsService.addResource();
+          break;
         case 'NEW_ROUTE':
           this.environmentsService.addRoute();
           break;

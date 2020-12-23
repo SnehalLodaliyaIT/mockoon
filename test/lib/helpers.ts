@@ -3,7 +3,7 @@ import {
   Header,
   LogicalOperators,
   ResponseRule
-} from '@mockoon/commons';
+} from '../../../mockoon/src/commons/src';
 import { expect } from 'chai';
 import { promises as fs } from 'fs';
 import { get as objectGetPath } from 'object-path';

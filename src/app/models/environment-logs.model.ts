@@ -1,4 +1,4 @@
-import { Header } from '@mockoon/commons';
+import { Header } from '../../commons/src';
 
 export type EnvironmentLogs = { [key: string]: EnvironmentLog[] };
 

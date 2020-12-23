@@ -4,7 +4,7 @@ import {
   Environments,
   Route,
   RouteResponse
-} from '@mockoon/commons';
+} from '../../commons/src';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map, pluck } from 'rxjs/operators';
 import { INDENT_SIZE } from 'src/app/constants/common.constants';
@@ -18,7 +18,7 @@ import { Toast } from 'src/app/models/toasts.model';
 import { Actions } from 'src/app/stores/actions';
 import { environmentReducer } from 'src/app/stores/reducer';
 
-export type ViewsNameType = 'ROUTE' | 'ENV_SETTINGS' | 'ENV_LOGS';
+export type ViewsNameType = 'RESOURCE' | 'ROUTE' | 'ENV_SETTINGS' | 'ENV_LOGS';
 
 export type TabsNameType = 'RESPONSE' | 'HEADERS' | 'RULES' | 'SETTINGS';
 

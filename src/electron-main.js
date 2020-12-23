@@ -133,6 +133,13 @@ const createAppMenu = function () {
         }
       },
       {
+        label: 'Add new resource',
+        accelerator: 'Shift+CmdOrCtrl+L',
+        click: function () {
+          mainWindow.webContents.send('keydown', { action: 'NEW_RESOURCE' });
+        }
+      },
+      {
         label: 'Add new route',
         accelerator: 'Shift+CmdOrCtrl+R',
         click: function () {
@@ -346,6 +353,7 @@ const init = function () {
     );
   }
 
+  /* change size */
   const mainWindowState = windowState({
     defaultWidth: 1024,
     defaultHeight: 768

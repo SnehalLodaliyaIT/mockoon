@@ -5,7 +5,7 @@ import {
   Environments,
   Route,
   Transaction
-} from '@mockoon/commons';
+} from '../../commons/src';
 import { EnvironmentLog } from 'src/app/models/environment-logs.model';
 import { Store } from 'src/app/stores/store';
 import { v1 as uuid } from 'uuid';

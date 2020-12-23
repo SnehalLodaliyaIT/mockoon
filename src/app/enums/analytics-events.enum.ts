@@ -6,6 +6,7 @@ type AnalyticsEventsNames =
   | 'APPLICATION_FIRST_LOAD'
   | 'SERVER_START'
   | 'CREATE_ENVIRONMENT'
+  | 'CREATE_RESOURCE'
   | 'CREATE_ROUTE'
   | 'EXPORT_FILE'
   | 'EXPORT_FILE_SELECTED'
@@ -37,6 +38,7 @@ export const AnalyticsEvents: {
     category: 'create',
     action: 'environment'
   },
+  CREATE_RESOURCE: { type: 'event', category: 'create', action: 'resource' },
   CREATE_ROUTE: { type: 'event', category: 'create', action: 'route' },
   EXPORT_FILE: { type: 'event', category: 'export', action: 'file' },
   EXPORT_FILE_SELECTED: { type: 'event', category: 'export', action: 'file-selected' },

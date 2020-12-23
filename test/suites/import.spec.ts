@@ -1,4 +1,4 @@
-import { HighestMigrationId } from '@mockoon/commons';
+import { HighestMigrationId } from '../../../mockoon/src/commons/src';
 import { promises as fs } from 'fs';
 import { Config } from 'src/app/config';
 import { Tests } from 'test/lib/tests';

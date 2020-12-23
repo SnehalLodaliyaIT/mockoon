@@ -1,4 +1,4 @@
-import { Environment } from '@mockoon/commons';
+import { Environment } from '../../commons/src';
 
 export type EnvironmentProperties = {
   [T in keyof Environment]?: Environment[T];

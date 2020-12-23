@@ -23,13 +23,13 @@ export const Config = {
   },
   maxLogsPerEnvironment: 50,
   firebaseConfig: {
-    apiKey: 'AIzaSyCIkzTtimLebXjf-gfCQ6iwCVFsYRhCRvs',
-    authDomain: 'mockoon-ba3e2.firebaseapp.com',
-    databaseURL: 'https://mockoon-ba3e2.firebaseio.com',
-    projectId: 'mockoon-ba3e2',
-    storageBucket: 'mockoon-ba3e2.appspot.com',
-    messagingSenderId: '902702764744',
-    appId: '1:902702764744:web:599e8dc8d6a1ef6542cbfd',
+    apiKey: 'AIzaSyBzK63wmsoCAdFktrbpk4oGwJ5HzXT6FrM',
+    authDomain: 'mockoon-1def8.firebaseapp.com',
+    databaseURL: 'https://mockoon-1def8-default-rtdb.firebaseio.com/',
+    projectId: 'mockoon-1def8',
+    storageBucket: 'mockoon-1def8.appspot.com',
+    messagingSenderId: '1059967704653',
+    appId: '1:1059967704653:web:57184e0279a41dd7094604',
     measurementId: environment.firebaseMeasurementId
   }
 };

@@ -4,7 +4,7 @@ import {
   Environments,
   HighestMigrationId,
   Migrations
-} from '@mockoon/commons';
+} from '../../commons/src';
 import { Observable } from 'rxjs';
 import { first, map } from 'rxjs/operators';
 import { Logger } from 'src/app/classes/logger';

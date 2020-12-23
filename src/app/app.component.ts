@@ -7,8 +7,9 @@ import {
   ViewChild
 } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import {CORSHeaders} from '../commons/src/constants/common.constants';
 import {
-  CORSHeaders,
+  
   Environment,
   Environments,
   GetRouteResponseContentType,
@@ -17,7 +18,7 @@ import {
   MimeTypesWithTemplating,
   Route,
   RouteResponse
-} from '@mockoon/commons';
+} from '../commons/src/';
 import { NgbTooltipConfig } from '@ng-bootstrap/ng-bootstrap';
 import { ipcRenderer, remote, shell } from 'electron';
 import { lookup as mimeTypeLookup } from 'mime-types';
@@ -85,6 +86,8 @@ export class AppComponent implements OnInit, AfterViewInit {
   public activeEnvironment$: Observable<Environment>;
   public activeEnvironmentForm: FormGroup;
   public activeEnvironmentState$: Observable<EnvironmentStatus>;
+  public activeResourceForm: FormGroup;
+  public activeResource$: Observable<Route>;
   public activeRoute$: Observable<Route>;
   public activeRouteForm: FormGroup;
   public activeRouteResponse$: Observable<RouteResponse>;

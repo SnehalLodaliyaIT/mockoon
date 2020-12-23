@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { cloneDeep } from 'lodash';
 import { DataService } from 'src/app/services/data.service';
 import { v1 as uuid } from 'uuid';
-import { Header, RouteResponse, Route, Environment, HighestMigrationId } from '@mockoon/commons';
+import { Header, RouteResponse, Resource,Route, Environment, HighestMigrationId } from '../../commons/src';
 
 @Injectable({ providedIn: 'root' })
 export class SchemasBuilderService {
@@ -45,6 +45,17 @@ export class SchemasBuilderService {
     };
   }
 
+/**
+   * Build a new resource
+   */
+  public buildResource(hasDefaultRoute=true): Resource {
+    return {
+      uuid: uuid(),
+      schema:{"name":"abc"},
+      routes:hasDefaultRoute ? [this.buildRoute()] : []
+    };
+  }
+
   /**
    * Build a new route
    */
@@ -64,6 +75,7 @@ export class SchemasBuilderService {
    * Build a new environment
    */
   public buildEnvironment(
+    hasDefaultResource=true,
     hasDefaultRoute = true,
     hasDefaultHeader = true
   ): Environment {
@@ -75,6 +87,7 @@ export class SchemasBuilderService {
       latency: 0,
       port: this.dataService.getNewEnvironmentPort(),
       routes: hasDefaultRoute ? [this.buildRoute()] : [],
+      resources:hasDefaultResource ? [this.buildResource()]:[],
       proxyMode: false,
       proxyHost: '',
       https: false,

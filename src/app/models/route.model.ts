@@ -1,4 +1,4 @@
-import { Route, RouteResponse } from '@mockoon/commons';
+import { Route, RouteResponse } from '../../commons/src';
 
 export type RouteProperties = { [T in keyof Route]?: Route[T] };
 

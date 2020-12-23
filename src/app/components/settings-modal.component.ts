@@ -5,7 +5,7 @@ import {
   OnInit,
   ViewChild
 } from '@angular/core';
-import { FakerLocales } from '@mockoon/commons';
+import { FakerLocales } from '../../commons/src';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
 import { Settings } from 'src/app/models/settings.model';

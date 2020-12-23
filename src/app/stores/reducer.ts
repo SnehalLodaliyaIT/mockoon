@@ -4,7 +4,7 @@ import {
   HighestMigrationId,
   Route,
   RouteResponse
-} from '@mockoon/commons';
+} from '../../commons/src';
 import { Config } from 'src/app/config';
 import { ArrayContainsObjectKey } from 'src/app/libs/utils.lib';
 import {
@@ -606,12 +606,78 @@ export function environmentReducer(
       break;
     }
 
-    case ActionTypes.ADD_ROUTE: {
-      // only add a route if there is at least one environment
+    case ActionTypes.ADD_RESOURCE: {
+      // only add a resource if there is at least one environment
+      console.log('===========in add new resource');
       if (state.environments.length > 0) {
         const activeEnvironmentStatus =
           state.environmentsStatus[state.activeEnvironmentUUID];
+        console.log('=======activeEnvironmentStatus');
+        console.log(activeEnvironmentStatus);
+        let needRestart: boolean;
+        if (activeEnvironmentStatus.running) {
+          needRestart = true;
+        }
 
+        const newResource = action.resource;
+        const afterUUID = action.afterUUID;
+        console.log('===========new state for add resource environments');
+        const data = state;
+        console.log(data);
+        newState = {
+          ...state,
+          activeRouteUUID: newResource.uuid,
+          activeRouteResponseUUID: newResource.uuid,
+          activeTab: 'RESPONSE',
+          activeView: 'RESOURCE',
+          environments: state.environments.map((environment) => {
+            if (environment.uuid === state.activeEnvironmentUUID) {
+              const resource = [...environment.resources];
+
+              let afterIndex = resource.length;
+              if (afterUUID) {
+                afterIndex = environment.resources.findIndex(
+                  (resource) => resource.uuid === afterUUID
+                );
+                if (afterIndex === -1) {
+                  afterIndex = resource.length;
+                }
+              }
+              resource.splice(afterIndex + 1, 0,newResource );
+
+              return {
+                ...environment,
+                resource
+              };
+            }
+
+            return environment;
+          }),
+          environmentsStatus: {
+            ...state.environmentsStatus,
+            [state.activeEnvironmentUUID]: {
+              ...activeEnvironmentStatus,
+              needRestart
+            }
+          }
+        };
+        console.log(newState);
+        break;
+      }
+
+      newState = state;
+      break;
+    }
+
+
+    case ActionTypes.ADD_ROUTE: {
+      // only add a route if there is at least one environment
+      console.log('===========in add new route');
+      if (state.environments.length > 0) {
+        const activeEnvironmentStatus =
+          state.environmentsStatus[state.activeEnvironmentUUID];
+        console.log('=======activeEnvironmentStatus');
+        console.log(activeEnvironmentStatus);
         let needRestart: boolean;
         if (activeEnvironmentStatus.running) {
           needRestart = true;
@@ -619,7 +685,7 @@ export function environmentReducer(
 
         const newRoute = action.route;
         const afterUUID = action.afterUUID;
-
+        console.log('===========new state');
         newState = {
           ...state,
           activeRouteUUID: newRoute.uuid,
@@ -657,6 +723,7 @@ export function environmentReducer(
             }
           }
         };
+        console.log(newState);
         break;
       }
 

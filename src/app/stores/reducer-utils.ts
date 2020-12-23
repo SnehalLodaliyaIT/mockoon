@@ -2,7 +2,7 @@ import {
   Environment,
   GetRouteResponseContentType,
   ListDuplicatedRouteUUIDs
-} from '@mockoon/commons';
+} from '../../commons/src';
 import { GetEditorModeFromContentType } from 'src/app/libs/utils.lib';
 import { DuplicatedRoutesTypes, StoreType } from 'src/app/stores/store';
 

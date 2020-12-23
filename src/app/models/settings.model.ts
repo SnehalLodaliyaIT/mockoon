@@ -1,4 +1,4 @@
-import { FakerAvailableLocales } from '@mockoon/commons';
+import { FakerAvailableLocales } from '../../commons/src';
 
 export type Settings = {
   welcomeShown: boolean;

@@ -6,7 +6,7 @@ import {
   OnInit,
   ViewChild
 } from '@angular/core';
-import { Environment, Environments } from '@mockoon/commons';
+import { Environment, Environments } from '../../../commons/src';
 import { Observable } from 'rxjs';
 import { EnvironmentsContextMenu } from 'src/app/components/context-menu/context-menus';
 import { ContextMenuEvent } from 'src/app/models/context-menu.model';

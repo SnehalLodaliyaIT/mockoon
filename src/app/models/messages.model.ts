@@ -1,4 +1,4 @@
-import { ServerErrorCodes } from '@mockoon/commons';
+import { ServerErrorCodes } from '../../commons/src';
 
 export type MessageParams = { [key: string]: any; error?: Error };
 export type MessageCodes =

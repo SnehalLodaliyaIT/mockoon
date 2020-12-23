@@ -7,7 +7,7 @@ import {
   Method,
   Route,
   RouteResponse
-} from '@mockoon/commons';
+} from '../../commons/src';
 import { OpenAPIV2, OpenAPIV3 } from 'openapi-types';
 import { Logger } from 'src/app/classes/logger';
 import { INDENT_SIZE } from 'src/app/constants/common.constants';

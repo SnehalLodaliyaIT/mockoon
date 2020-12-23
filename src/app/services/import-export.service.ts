@@ -7,7 +7,7 @@ import {
   ExportDataEnvironment,
   ExportDataRoute,
   Route
-} from '@mockoon/commons';
+} from '../../commons/src';
 import { clipboard, remote } from 'electron';
 import { readFile, writeFile } from 'fs';
 import { cloneDeep } from 'lodash';

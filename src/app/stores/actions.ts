@@ -1,9 +1,10 @@
 import {
   Environment,
   Environments,
+  Resource,
   Route,
   RouteResponse
-} from '@mockoon/commons';
+} from '../../commons/src';
 import { EnvironmentLog } from 'src/app/models/environment-logs.model';
 import { EnvironmentProperties } from 'src/app/models/environment.model';
 import {
@@ -37,6 +38,7 @@ export const enum ActionTypes {
   NAVIGATE_ROUTES,
   MOVE_ROUTES,
   MOVE_ROUTE_RESPONSES,
+  ADD_RESOURCE,
   ADD_ROUTE,
   REMOVE_ROUTE,
   REMOVE_ROUTE_RESPONSE,
@@ -211,12 +213,12 @@ export function updateEnvironmentAction(properties: EnvironmentProperties) {
  */
 export function updateEnvironmentStatusAction(
   properties: EnvironmentStatusProperties,
-  environmentUUID,
+  environmentUUID
 ) {
   return <const>{
     type: ActionTypes.UPDATE_ENVIRONMENT_STATUS,
     properties,
-    environmentUUID,
+    environmentUUID
   };
 }
 
@@ -245,11 +247,27 @@ export function navigateRoutesAction(direction: ReducerDirectionType) {
 }
 
 /**
+ * Add a resource
+ *
+ * @param resource - resource to add
+ */
+export function addResourceAction(resource: Resource, afterUUID?: string) {
+  console.log('======in resource add in action' );
+  console.log(resource);
+  return <const>{
+    type: ActionTypes.ADD_RESOURCE,
+    resource,
+    afterUUID
+  };
+}
+
+/**
  * Add a route
  *
  * @param route - route to add
  */
 export function addRouteAction(route: Route, afterUUID?: string) {
+  console.log('in route add');
   return <const>{
     type: ActionTypes.ADD_ROUTE,
     route,
@@ -454,6 +472,7 @@ export type Actions =
   | ReturnType<typeof updateEnvironmentStatusAction>
   | ReturnType<typeof setActiveRouteAction>
   | ReturnType<typeof navigateRoutesAction>
+  | ReturnType<typeof addResourceAction>
   | ReturnType<typeof addRouteAction>
   | ReturnType<typeof removeRouteAction>
   | ReturnType<typeof removeRouteResponseAction>

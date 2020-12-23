@@ -4,9 +4,10 @@ import {
   Environments,
   Header,
   Method,
+  Resource,
   Route,
   RouteResponse
-} from '@mockoon/commons';
+} from '../../commons/src';
 import { cloneDeep } from 'lodash';
 import { of } from 'rxjs';
 import { concatMap, mergeMap, tap } from 'rxjs/operators';
@@ -30,6 +31,7 @@ import { StorageService } from 'src/app/services/storage.service';
 import { UIService } from 'src/app/services/ui.service';
 import {
   addEnvironmentAction,
+  addResourceAction,
   addRouteAction,
   addRouteResponseAction,
   moveEnvironmentsAction,
@@ -201,6 +203,21 @@ export class EnvironmentsService {
     }
   }
 
+/**
+   * Add a new resource and save it in the store
+   */
+  public addResource() {
+    if (this.store.getActiveEnvironment()) {
+      this.store.update(
+        addResourceAction(this.schemasBuilderService.buildResource())
+      );
+      
+      //this.eventsService.analyticsEvents.next(AnalyticsEvents.CREATE_RESOURCE);
+      // this.uiService.scrollRoutesMenu.next(ScrollDirection.BOTTOM);
+      // this.uiService.focusInput(FocusableInputs.ROUTE_PATH);
+    }
+  }
+
   /**
    * Add a new route and save it in the store
    */
@@ -211,7 +228,7 @@ export class EnvironmentsService {
       );
       this.eventsService.analyticsEvents.next(AnalyticsEvents.CREATE_ROUTE);
       this.uiService.scrollRoutesMenu.next(ScrollDirection.BOTTOM);
-      this.uiService.focusInput(FocusableInputs.ROUTE_PATH);
+      this.uiService.focusInput(FocusableInputs.RESOURCE_PATH);
     }
   }
 
