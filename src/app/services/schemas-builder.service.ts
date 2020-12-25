@@ -51,7 +51,9 @@ export class SchemasBuilderService {
   public buildResource(hasDefaultRoute=true): Resource {
     return {
       uuid: uuid(),
-      schema:{"name":"abc"},
+      name:"new Resource",
+      noOfColumns:0,
+      resourceColumns:{},
       routes:hasDefaultRoute ? [this.buildRoute()] : []
     };
   }

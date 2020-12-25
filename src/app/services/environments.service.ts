@@ -51,6 +51,7 @@ import {
   setActiveViewAction,
   setInitialEnvironmentsAction,
   updateEnvironmentAction,
+  updateResourceAction,
   updateRouteAction,
   updateRouteResponseAction
 } from 'src/app/stores/actions';
@@ -212,7 +213,7 @@ export class EnvironmentsService {
         addResourceAction(this.schemasBuilderService.buildResource())
       );
       
-      //this.eventsService.analyticsEvents.next(AnalyticsEvents.CREATE_RESOURCE);
+      this.eventsService.analyticsEvents.next(AnalyticsEvents.CREATE_RESOURCE);
       // this.uiService.scrollRoutesMenu.next(ScrollDirection.BOTTOM);
       // this.uiService.focusInput(FocusableInputs.ROUTE_PATH);
     }
@@ -355,6 +356,13 @@ export class EnvironmentsService {
     this.store.update(updateEnvironmentAction(properties));
   }
 
+ /**
+   * Update the active resource
+   */
+  public updateActiveResource(properties: Resource) {
+    this.store.update(updateResourceAction(properties));
+  }
+
   /**
    * Update the active route
    */
@@ -366,6 +374,8 @@ export class EnvironmentsService {
    * Update the active route response
    */
   public updateActiveRouteResponse(properties: RouteResponseProperties) {
+    console.log("=====in environment update properties");
+    console.log(properties);
     this.store.update(updateRouteResponseAction(properties));
   }
 

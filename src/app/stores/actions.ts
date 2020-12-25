@@ -22,6 +22,8 @@ import {
   ViewsNameType
 } from 'src/app/stores/store';
 
+
+
 export const enum ActionTypes {
   SET_ACTIVE_TAB,
   SET_ACTIVE_VIEW,
@@ -39,6 +41,7 @@ export const enum ActionTypes {
   MOVE_ROUTES,
   MOVE_ROUTE_RESPONSES,
   ADD_RESOURCE,
+  UPDATE_RESOURCE,
   ADD_ROUTE,
   REMOVE_ROUTE,
   REMOVE_ROUTE_RESPONSE,
@@ -456,6 +459,19 @@ export function updateUIStateAction(properties: UIStateProperties) {
   };
 }
 
+/**
+ * Update a resource
+ *
+ * @param properties - properties to update
+ */
+export function updateResourceAction(properties: Resource) {
+  return <const>{
+    type: ActionTypes.UPDATE_RESOURCE,
+    properties
+  };
+}
+
+
 export type Actions =
   | ReturnType<typeof setActiveTabAction>
   | ReturnType<typeof setActiveViewAction>
@@ -473,6 +489,7 @@ export type Actions =
   | ReturnType<typeof setActiveRouteAction>
   | ReturnType<typeof navigateRoutesAction>
   | ReturnType<typeof addResourceAction>
+  | ReturnType<typeof updateResourceAction>
   | ReturnType<typeof addRouteAction>
   | ReturnType<typeof removeRouteAction>
   | ReturnType<typeof removeRouteResponseAction>

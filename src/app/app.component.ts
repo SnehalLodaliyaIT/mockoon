@@ -2,23 +2,14 @@ import {
   AfterViewInit,
   ChangeDetectionStrategy,
   Component,
+  EventEmitter,
   HostListener,
+  Input,
   OnInit,
+  Output,
   ViewChild
 } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import {CORSHeaders} from '../commons/src/constants/common.constants';
-import {
-  
-  Environment,
-  Environments,
-  GetRouteResponseContentType,
-  Header,
-  IsValidURL,
-  MimeTypesWithTemplating,
-  Route,
-  RouteResponse
-} from '../commons/src/';
+import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { NgbTooltipConfig } from '@ng-bootstrap/ng-bootstrap';
 import { ipcRenderer, remote, shell } from 'electron';
 import { lookup as mimeTypeLookup } from 'mime-types';
@@ -72,6 +63,18 @@ import {
   TabsNameType,
   ViewsNameType
 } from 'src/app/stores/store';
+import {
+  Environment,
+  Environments,
+  GetRouteResponseContentType,
+  Header,
+  IsValidURL,
+  MimeTypesWithTemplating,
+  Resource,
+  Route,
+  RouteResponse
+} from '../commons/src/';
+import { CORSHeaders } from '../commons/src/constants/common.constants';
 
 @Component({
   selector: 'app-root',
@@ -86,8 +89,13 @@ export class AppComponent implements OnInit, AfterViewInit {
   public activeEnvironment$: Observable<Environment>;
   public activeEnvironmentForm: FormGroup;
   public activeEnvironmentState$: Observable<EnvironmentStatus>;
-  public activeResourceForm: FormGroup;
-  public activeResource$: Observable<Route>;
+  public resourceColumnsCount$: Observable<number>;
+  public activeResourcesFormGroup: FormGroup;
+  public activeResourcesFormArray: FormArray;
+  public activeResourceFormGroup: FormGroup;
+  public activeResourceColumnsFormArray: FormArray;
+  public activeResourceColumnFormGroup: FormGroup;
+  public activeResource$: Observable<Resource>;
   public activeRoute$: Observable<Route>;
   public activeRouteForm: FormGroup;
   public activeRouteResponse$: Observable<RouteResponse>;
@@ -189,6 +197,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 
     this.environments$ = this.store.select('environments');
     this.activeEnvironment$ = this.store.selectActiveEnvironment();
+    this.activeResource$ = this.store.selectActiveResource();
     this.activeRoute$ = this.store.selectActiveRoute();
     this.activeRouteResponse$ = this.store.selectActiveRouteResponse();
     this.activeRouteResponseIndex$ = this.store.selectActiveRouteResponseIndex();
@@ -521,6 +530,25 @@ export class AppComponent implements OnInit, AfterViewInit {
       cors: ['']
     });
 
+    this.activeResourceColumnsFormArray = new FormArray([]);
+    this.activeResourceColumnFormGroup = new FormGroup({
+      keyName: new FormControl(''),
+      valueType: new FormControl('')
+    });
+    this.activeResourceFormGroup = this.formBuilder.group({
+      activeResourceColumnsFormArray: this.activeResourceColumnsFormArray
+    });
+    
+
+
+    
+    this.activeResourceColumnsFormArray.push(
+      this.activeResourceColumnFormGroup
+    );
+    this.activeResourceColumnsFormArray.push(
+      this.activeResourceColumnFormGroup
+    );
+
     this.activeRouteForm = this.formBuilder.group({
       documentation: [''],
       method: [''],
@@ -547,6 +575,23 @@ export class AppComponent implements OnInit, AfterViewInit {
       )
     ).subscribe((newProperty) => {
       this.environmentsService.updateActiveEnvironment(newProperty);
+    });
+
+    // send new activeResourceForm values to the store, one by one
+    merge(
+      ...Object.keys(this.activeResourceColumnsFormArray.controls).map(
+        (controlName) =>
+          this.activeResourceColumnsFormArray.get(controlName).valueChanges.pipe(
+            map((newValue) => ({
+              [controlName]: newValue
+            }))
+          )
+      )
+    ).subscribe((newProperty) => {
+      console.log('======property on update time for resource');
+      console.log(newProperty);
+
+      this.environmentsService.updateActiveRoute(newProperty);
     });
 
     // send new activeRouteForm values to the store, one by one
@@ -597,6 +642,26 @@ export class AppComponent implements OnInit, AfterViewInit {
           { emitEvent: false }
         );
       });
+
+    // subscribe to active resource changes to reset the form
+    // this.activeResource$
+    //   .pipe(
+    //     filter((resource) => !!resource),
+    //     distinctUntilKeyChanged('uuid')
+    //   )
+    //   .subscribe((activeResource) => {
+    //     console.log('====in set new value');
+    //     console.log(this.columns);
+    //     this.activeResourceForm.patchValue(
+    //       {
+    //         //set key value array to object of structure
+    //         resourceKey: this.columns,
+    //         // resourceValue: activeResource.resou,
+    //         noOfColumns: this.counter
+    //       },
+    //       { emitEvent: false }
+    //     );
+    //   });
 
     // subscribe to active route changes to reset the form
     this.activeRoute$
@@ -656,5 +721,35 @@ export class AppComponent implements OnInit, AfterViewInit {
    */
   private toggleRoute(routeUUID?: string) {
     this.environmentsService.toggleRoute(routeUUID);
+  }
+
+  //counter
+  counterValue = 2;
+  @Output() counterChange = new EventEmitter<number>();
+
+  @Input()
+  get counter() {
+    return this.counterValue;
+  }
+
+  set counter(value) {
+    this.counterValue = value;
+    this.counterChange.emit(this.counterValue);
+  }
+
+  decrement() {
+    this.counter--;
+  }
+
+  increment() {
+    this.counter++;
+    this.activeResourceColumnsFormArray.push(
+      this.formBuilder.group({
+        keyName: new FormControl(''),
+        valueType: new FormControl('')
+      })
+    );
+    console.log('=====after push array columns array');
+    console.log(this.activeResourceColumnsFormArray);
   }
 }

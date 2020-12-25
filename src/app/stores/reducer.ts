@@ -23,6 +23,8 @@ import { EnvironmentsStatuses, StoreType } from 'src/app/stores/store';
 export type ReducerDirectionType = 'next' | 'previous';
 export type ReducerIndexes = { sourceIndex: number; targetIndex: number };
 
+
+
 export function environmentReducer(
   state: StoreType,
   action: Actions
@@ -622,8 +624,6 @@ export function environmentReducer(
         const newResource = action.resource;
         const afterUUID = action.afterUUID;
         console.log('===========new state for add resource environments');
-        const data = state;
-        console.log(data);
         newState = {
           ...state,
           activeRouteUUID: newResource.uuid,

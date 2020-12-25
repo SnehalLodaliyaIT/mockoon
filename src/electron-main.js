@@ -52,7 +52,7 @@ const createSplashScreen = function () {
     fullscreen: false,
     show: true,
     movable: true,
-    maximizable: false,
+    maximizable: true,
     minimizable: false,
     icon: path.join(__dirname, '/icon_512x512x32.png')
   });
@@ -363,10 +363,11 @@ const init = function () {
     x: mainWindowState.x,
     y: mainWindowState.y,
     minWidth: 1024,
-    minHeight: 768,
+    // minHeight: 768,
     width: mainWindowState.width,
     height: mainWindowState.height,
     title: 'Mockoon',
+    maximizable: true,
     backgroundColor: '#252830',
     icon: path.join(__dirname, '/icon_512x512x32.png'),
     // directly show the main window when running the tests

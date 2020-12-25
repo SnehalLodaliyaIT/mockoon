@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {
   Environment,
   Environments,
+  Resource,
   Route,
   RouteResponse
 } from '../../commons/src';
@@ -50,6 +51,7 @@ export type StoreType = {
   activeView: ViewsNameType;
   activeEnvironmentLogsTab: EnvironmentLogsTabsNameType;
   activeEnvironmentUUID: string;
+  activeResourceUUID:string,
   activeRouteUUID: string;
   activeRouteResponseUUID: string;
   environments: Environments;
@@ -74,6 +76,7 @@ export class Store {
     activeEnvironmentLogsTab: 'REQUEST',
     activeEnvironmentLogsUUID: {},
     activeEnvironmentUUID: null,
+    activeResourceUUID:null,
     activeRouteUUID: null,
     activeRouteResponseUUID: null,
     environments: [],
@@ -199,6 +202,21 @@ export class Store {
             : null
         )
       );
+  }
+
+  /**
+   * Select active resource observable
+   */
+  public selectActiveResource(): Observable<Resource> {
+    return this.selectActiveEnvironment().pipe(
+      map((environment) =>
+        environment
+          ? environment.resources.find(
+              (resources) => resources.uuid === this.store$.value.activeResourceUUID
+            )
+          : null
+      )
+    );
   }
 
   /**
@@ -339,6 +357,8 @@ export class Store {
    * Update the store using the reducer
    */
   public update(action: Actions) {
+    console.log("=====check resource update");
+    console.log(action);
     this.store$.next(environmentReducer(this.store$.value, action));
   }
 

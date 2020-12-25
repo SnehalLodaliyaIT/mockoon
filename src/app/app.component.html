@@ -449,44 +449,34 @@
               *ngIf="activeView === 'RESOURCE'"
               class="p-2 h-100 d-flex flex-column overflow-hidden"
             >
-              <ng-container [formGroup]="activeResourceForm">
+              <ng-container [formGroup]="activeResourceFormGroup">
                 <div>Add your resource</div>
-
-                <div class="input-group">
-                  <input
-                    type="text"
-                    class="form-control"
-                    placeholder="ObjectId"
-                    ValidPath
-                    formControlName="schemakey"
-                    [focusOnEvent]="focusableInputs.RESOURCE"
-                    style="color: white;"
-                  />
-                  <div class="col-1"></div>
-                  
-                  <select class="custom-select col-5">
-                    <option selected> ObjectId</option>
-                    <option> string</option>
-                  </select>
+                <div formArrayName="activeResourceColumnsFormArray">
+                <div *ngFor="let control of activeResourceColumnsFormArray.controls;  let $index=index">
+                  <div class="input-group" [formGroupName]="$index">
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="ObjectId"
+                      ValidPath
+                      formControlName="keyName"
+                      [focusOnEvent]="focusableInputs.RESOURCE"
+                      style="color: white;"
+                    />
+                    <div class="col-1"></div>
+  
+                    <select class="custom-select col-5">
+                      <option selected> ObjectId</option>
+                      <option> string</option>
+                    </select>
+                  </div>
                 </div>
-                <div class="input-group" style="margin-top: 10px;">
-                  <input
-                    type="text"
-                    class="form-control"
-                    placeholder="name"
-                    ValidPath
-                    formControlName="schemakey"
-                    [focusOnEvent]="focusableInputs.RESOURCE"
-                    style="color: white;"
-                  />
-                  <div class="col-1"></div>
-                  
-                  <select class="custom-select col-5">
-                    <option> ObjectId</option>
-                    <option selected> string</option>
-                  </select>
-                </div>
+              </div>
                 <!-- resource view left-->
+
+                
+                <!-- <span>{{ counter }}</span> -->
+                <button (click)="increment()">+</button>
               </ng-container>
             </div>
             <!-- ROUTE VIEW -->
